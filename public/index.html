@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chat with Assistant</title>
+</head>
+<body>
+<div id="chat-window"></div>
+<input type="text" id="user-input" placeholder="Ask a question...">
+<button id="send-button">Send</button>
+
+<script>
+document.getElementById('send-button').addEventListener('click', async () => {
+  const inputBox = document.getElementById('user-input');
+  const userInput = inputBox.value;
+  inputBox.value = '';
+
+  const chatWindow = document.getElementById('chat-window');
+  chatWindow.innerHTML += `<div>User: ${userInput}</div>`;
+
+  // Send the user input to the server
+  const response = await fetch('/api/sendMessage', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ message: userInput })
+  });
+
+  const data = await response.json();
+  chatWindow.innerHTML += `<div>Assistant: ${data.message}</div>`;
+});
+</script>
+</body>
+</html>
