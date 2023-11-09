@@ -20,7 +20,7 @@ document.getElementById('send-button').addEventListener('click', async () => {
   chatWindow.innerHTML += `<div>User: ${userInput}</div>`;
 
   // Send the user input to the server
-  const response = await fetch('/sendMessage', {
+  const response = await fetch('/api/sendMessage', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
